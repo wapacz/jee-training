@@ -56,5 +56,4 @@ public class OperationService implements MessageListener {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "OperationService is going down...");
     }
 
-
 }
