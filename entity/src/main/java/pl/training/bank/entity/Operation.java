@@ -20,6 +20,6 @@ public class Operation implements Serializable {
     @NonNull
     private OperationType type;
     @NonNull
-    private long funds;
+    private Long funds;
 
 }
