@@ -18,7 +18,7 @@ public class Client implements Serializable {
     protected List<Account> accounts;
     @OneToOne
     protected Address primaryAddress;
-    @JoinColumn
+    @JoinColumn(name = "client_id")
     @OneToMany
     protected List<Address> addresses;
 

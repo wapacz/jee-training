@@ -33,7 +33,7 @@ public class EjbClient {
         bank.withdraw(50, firstAccount.getNumber());
         bank.transfer(50, firstAccount.getNumber(), secondAccount.getNumber());
 
-        Operation operation = new Operation(firstAccount, OperationType.DEPOSIT, 1000L);
+        Operation operation = new Operation(firstAccount, OperationType.DEPOSIT, 1001L);
 
         ConnectionFactory connectionFactory = proxyFactory.createProxy(QUEUE_CONNECTION_FACTORY_JNDI_NAME);
         Queue queue = proxyFactory.createProxy(BANK_QUEUE_JNDI_NAME);
