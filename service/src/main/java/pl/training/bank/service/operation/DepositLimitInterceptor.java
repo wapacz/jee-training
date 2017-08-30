@@ -1,15 +1,11 @@
 package pl.training.bank.service.operation;
 
-import pl.training.bank.api.BankException;
-
 import javax.annotation.Resource;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.Topic;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DepositLimitInterceptor {
 
@@ -24,26 +20,21 @@ public class DepositLimitInterceptor {
 
     @AroundInvoke
     public Object addEntry(InvocationContext invocationContext) throws Exception {
-        Object result = null;
-        try {
-            result = invocationContext.proceed();
-            Object[] parameters = invocationContext.getParameters();
-            long funds = (Long) parameters[FUNDS_INDEX];
-            String accountNumber = (String) parameters[ACCOUNT_NUMBER_INDEX];
-            checkDepositLimit(funds, accountNumber);
-        } catch (BankException ex) {
-            Logger.getLogger(getClass().getName()).log(Level.INFO, "Operation failed");
-        }
+        Object result = invocationContext.proceed();
+        Object[] parameters = invocationContext.getParameters();
+        long funds = (Long) parameters[FUNDS_INDEX];
+        String accountNumber = (String) parameters[ACCOUNT_NUMBER_INDEX];
+        checkDepositLimit(funds, accountNumber);
         return result;
     }
 
     private void checkDepositLimit(long funds, String accountNumber) {
-       if (funds > DEPOSIT_LIMIT) {
-           String message = "Deposit limit on account: " + accountNumber;
-           try (JMSContext jmsContext = connectionFactory.createContext()) {
-               jmsContext.createProducer().send(topic, message);
-           }
-       }
+        if (funds > DEPOSIT_LIMIT) {
+            String message = "Deposit limit on account: " + accountNumber;
+            try (JMSContext jmsContext = connectionFactory.createContext()) {
+                jmsContext.createProducer().send(topic, message);
+            }
+        }
     }
 
 }

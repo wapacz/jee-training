@@ -28,30 +28,30 @@ public class EjbClient {
 
         Account firstAccount = bank.createAccount();
         Account secondAccount = bank.createAccount();
-        bank.deposit(1000, firstAccount.getNumber());
-        bank.deposit(1000, secondAccount.getNumber());
-        bank.withdraw(50, firstAccount.getNumber());
-        bank.transfer(50, firstAccount.getNumber(), secondAccount.getNumber());
+        bank.deposit(1000, "ss");
+//        bank.deposit(1000, secondAccount.getNumber());
+//        bank.withdraw(50, firstAccount.getNumber());
+   //     bank.transfer(50, firstAccount.getNumber(),"ss");
 
-        Operation operation = new Operation(firstAccount, OperationType.DEPOSIT, 1001L);
-
-        ConnectionFactory connectionFactory = proxyFactory.createProxy(QUEUE_CONNECTION_FACTORY_JNDI_NAME);
-        Queue queue = proxyFactory.createProxy(BANK_QUEUE_JNDI_NAME);
-        try (JMSContext jmsContext = connectionFactory.createContext()) {
-            jmsContext.createProducer().send(queue, operation);
-        }
-
-        OperationCart cart = proxyFactory.createProxy(OPERATION_CART_JNDI_NAME);
-        cart.add(new Operation(firstAccount, OperationType.DEPOSIT, 500L));
-        cart.add(new Operation(firstAccount, OperationType.WITHDRAW, 10L));
-        cart.submit();
-
-        System.out.printf("First account: %d\n", bank.getBalance(firstAccount.getNumber()));
-        System.out.printf("Second account: %d\n", bank.getBalance(secondAccount.getNumber()));
-
-        Future<List<OperationSummary>> operationsSummary = bank.generateOperationsReport();
-        System.out.println("Report is done: " + operationsSummary.isDone());
-        operationsSummary.get().forEach(System.out::println);
+//        Operation operation = new Operation(firstAccount, OperationType.DEPOSIT, 1001L);
+//
+//        ConnectionFactory connectionFactory = proxyFactory.createProxy(QUEUE_CONNECTION_FACTORY_JNDI_NAME);
+//        Queue queue = proxyFactory.createProxy(BANK_QUEUE_JNDI_NAME);
+//        try (JMSContext jmsContext = connectionFactory.createContext()) {
+//            jmsContext.createProducer().send(queue, operation);
+//        }
+//
+//        OperationCart cart = proxyFactory.createProxy(OPERATION_CART_JNDI_NAME);
+//        cart.add(new Operation(firstAccount, OperationType.DEPOSIT, 500L));
+//        cart.add(new Operation(firstAccount, OperationType.WITHDRAW, 10L));
+//        cart.submit();
+//
+//        System.out.printf("First account: %d\n", bank.getBalance(firstAccount.getNumber()));
+//        System.out.printf("Second account: %d\n", bank.getBalance(secondAccount.getNumber()));
+//
+//        Future<List<OperationSummary>> operationsSummary = bank.generateOperationsReport();
+//        System.out.println("Report is done: " + operationsSummary.isDone());
+//        operationsSummary.get().forEach(System.out::println);
     }
 
 }

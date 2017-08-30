@@ -1,6 +1,5 @@
 package pl.training.bank.service.operation;
 
-import pl.training.bank.api.BankException;
 import pl.training.bank.entity.Account;
 import pl.training.bank.entity.Operation;
 import pl.training.bank.entity.OperationType;
@@ -10,8 +9,6 @@ import javax.ejb.EJB;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class OperationHistoryInterceptor {
 
@@ -25,14 +22,9 @@ public class OperationHistoryInterceptor {
 
     @AroundInvoke
     public Object addEntry(InvocationContext invocationContext) throws Exception {
-        Object result = null;
-        try {
-            result = invocationContext.proceed();
-            Operation operation = mapToOperation(invocationContext);
-            operationRepositoryService.save(operation);
-        } catch (BankException ex) {
-            Logger.getLogger(getClass().getName()).log(Level.INFO, "Operation failed");
-        }
+        Object result = invocationContext.proceed();
+        Operation operation = mapToOperation(invocationContext);
+        operationRepositoryService.save(operation);
         return result;
     }
 
