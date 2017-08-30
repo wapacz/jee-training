@@ -1,6 +1,7 @@
 package pl.training.bank.client;
 
 import pl.training.bank.api.Bank;
+import pl.training.bank.api.BankAsync;
 import pl.training.bank.api.OperationCart;
 import pl.training.bank.entity.Account;
 import pl.training.bank.entity.Operation;
@@ -49,7 +50,8 @@ public class EjbClient {
         System.out.printf("First account: %d\n", bank.getBalance(firstAccount.getNumber()));
         System.out.printf("Second account: %d\n", bank.getBalance(secondAccount.getNumber()));
 
-        Future<List<OperationSummary>> operationsSummary = bank.generateOperationsReport();
+        BankAsync bankAsync = (BankAsync) bank;
+        Future<List<OperationSummary>> operationsSummary = bankAsync.generateOperationsReport();
         System.out.println("Report is done: " + operationsSummary.isDone());
         operationsSummary.get().forEach(System.out::println);
     }

@@ -1,12 +1,11 @@
 package pl.training.bank.api;
 
 import pl.training.bank.entity.Account;
-import pl.training.bank.entity.OperationSummary;
 
 import javax.ejb.Remote;
-import java.util.List;
-import java.util.concurrent.Future;
+import javax.jws.WebService;
 
+@WebService(portName = "Bank", serviceName = "Bank")
 @Remote
 public interface Bank {
 
@@ -19,7 +18,5 @@ public interface Bank {
     void transfer(long funds, String sourceAccountNumber, String destinationAccountNumber);
 
     long getBalance(String accountNumber);
-
-    Future<List<OperationSummary>> generateOperationsReport();
 
 }
