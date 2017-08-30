@@ -20,6 +20,7 @@ public class EjbClient {
 
     private static final String OPERATION_CART_JNDI_NAME = "java:/bank/CartService!pl.training.bank.api.OperationCart";
     private static final String BANK_JNDI_NAME = "java:/bank/BankService!pl.training.bank.api.Bank";
+    private static final String BANK_ASYNC_JNDI_NAME = "java:/bank/BankServiceAsync!pl.training.bank.api.BankAsync";
     private static final String BANK_QUEUE_JNDI_NAME = "jms/queue/Bank";
     private static final String QUEUE_CONNECTION_FACTORY_JNDI_NAME = "jms/RemoteConnectionFactory";
 
@@ -50,7 +51,7 @@ public class EjbClient {
         System.out.printf("First account: %d\n", bank.getBalance(firstAccount.getNumber()));
         System.out.printf("Second account: %d\n", bank.getBalance(secondAccount.getNumber()));
 
-        BankAsync bankAsync = (BankAsync) bank;
+        BankAsync bankAsync =  proxyFactory.createProxy(BANK_ASYNC_JNDI_NAME);
         Future<List<OperationSummary>> operationsSummary = bankAsync.generateOperationsReport();
         System.out.println("Report is done: " + operationsSummary.isDone());
         operationsSummary.get().forEach(System.out::println);

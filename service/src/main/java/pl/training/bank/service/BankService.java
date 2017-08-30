@@ -2,28 +2,22 @@ package pl.training.bank.service;
 
 import lombok.Setter;
 import pl.training.bank.api.Bank;
-import pl.training.bank.api.BankAsync;
 import pl.training.bank.entity.Account;
-import pl.training.bank.entity.OperationSummary;
 import pl.training.bank.service.account.AccountService;
 import pl.training.bank.service.operation.ReportService;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.jws.WebMethod;
 import javax.jws.WebService;
-import java.util.List;
-import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @WebService(portName = "Bank", serviceName = "Bank")
 @Setter
 @Stateless
-public class BankService implements Bank, BankAsync {
+public class BankService implements Bank {
 
     @EJB
     private ReportService reportService;
@@ -54,13 +48,6 @@ public class BankService implements Bank, BankAsync {
     @Override
     public long getBalance(String accountNumber) {
         return accountService.getBalance(accountNumber);
-    }
-
-    @WebMethod(exclude = true)
-    @Asynchronous
-    @Override
-    public Future<List<OperationSummary>> generateOperationsReport() {
-        return reportService.generate();
     }
 
     @PostConstruct
