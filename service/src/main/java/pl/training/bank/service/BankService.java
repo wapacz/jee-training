@@ -3,13 +3,18 @@ package pl.training.bank.service;
 import lombok.Setter;
 import pl.training.bank.api.Bank;
 import pl.training.bank.entity.Account;
+import pl.training.bank.entity.Operation;
+import pl.training.bank.rest.dto.AccountDto;
+import pl.training.bank.rest.dto.OperationDto;
 import pl.training.bank.service.account.AccountsService;
+import pl.training.bank.service.operation.OperationsExecutorService;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,26 +25,21 @@ public class BankService implements Bank {
 
     @EJB
     private AccountsService accountsService;
+    @EJB
+    private OperationsExecutorService operationsExecutorService;
+    @EJB
+    private Mapper mapper;
 
     @Override
-    public Account createAccount() {
-        return accountsService.createAccount();
+    public AccountDto createAccount() {
+        Account account = accountsService.createAccount();
+        return mapper.map(account, AccountDto.class);
     }
 
     @Override
-    public void deposit(long funds, String accountNumber) {
-        accountsService.deposit(funds, accountNumber);
-    }
-
-    @Override
-    public void withdraw(long funds, String accountNumber) {
-        accountsService.withdraw(funds, accountNumber);
-    }
-
-    @Override
-    public void transfer(long funds, String sourceAccountNumber, String destinationAccountNumber) {
-        accountsService.withdraw(funds, sourceAccountNumber);
-        accountsService.deposit(funds, destinationAccountNumber);
+    public void process(List<OperationDto> operationsDtos) {
+        List<Operation> operations = mapper.map(operationsDtos, Operation.class);
+        operationsExecutorService.submit(operations);
     }
 
     @Override

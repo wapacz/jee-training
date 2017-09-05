@@ -1,21 +1,19 @@
 package pl.training.bank.api;
 
-import pl.training.bank.entity.Account;
+import pl.training.bank.rest.dto.AccountDto;
+import pl.training.bank.rest.dto.OperationDto;
 
 import javax.ejb.Remote;
 import javax.jws.WebService;
+import java.util.List;
 
 @WebService(portName = "Bank", serviceName = "Bank")
 @Remote
 public interface Bank {
 
-    Account createAccount();
+    AccountDto createAccount();
 
-    void deposit(long funds, String accountNumber);
-
-    void withdraw(long funds, String accountNumber);
-
-    void transfer(long funds, String sourceAccountNumber, String destinationAccountNumber);
+    void process(List<OperationDto> operationsDtos);
 
     long getBalance(String accountNumber);
 

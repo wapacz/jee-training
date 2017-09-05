@@ -1,13 +1,13 @@
 package pl.training.bank.api;
 
-import pl.training.bank.entity.Operation;
+import pl.training.bank.rest.dto.OperationDto;
 
 import javax.ejb.Remote;
 
 @Remote
 public interface OperationsCart {
 
-    void add(Operation operation);
+    void add(OperationDto operation);
 
     void submit();
 

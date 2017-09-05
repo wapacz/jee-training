@@ -3,6 +3,8 @@ package pl.training.bank.service.operation;
 import lombok.Setter;
 import pl.training.bank.api.OperationsCart;
 import pl.training.bank.entity.Operation;
+import pl.training.bank.rest.dto.OperationDto;
+import pl.training.bank.service.Mapper;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -17,18 +19,21 @@ import java.util.logging.Logger;
 public class CartService implements OperationsCart {
 
     @EJB
-    private OperationsExecutorService executorService;
-    private List<Operation> operations = new ArrayList<>();
+    private OperationsExecutorService operationsExecutorService;
+    @EJB
+    private Mapper mapper;
+    private List<OperationDto> operationsDtos = new ArrayList<>();
 
     @Override
-    public void add(Operation operation) {
-        operations.add(operation);
+    public void add(OperationDto operationDto) {
+        operationsDtos.add(operationDto);
     }
 
     @Remove
     @Override
     public void submit() {
-        executorService.submit(operations);
+        List<Operation> operations = mapper.map(operationsDtos, Operation.class);
+        operationsExecutorService.submit(operations);
     }
 
     @Remove

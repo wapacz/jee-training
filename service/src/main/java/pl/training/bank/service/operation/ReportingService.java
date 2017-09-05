@@ -2,10 +2,13 @@ package pl.training.bank.service.operation;
 
 import lombok.Setter;
 import pl.training.bank.entity.OperationSummary;
+import pl.training.bank.rest.dto.OperationDto;
+import pl.training.bank.service.Mapper;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.AsyncResult;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,15 +25,18 @@ public class ReportingService {
 
     @PersistenceContext(unitName = "bank")
     private EntityManager entityManager;
+    @EJB
+    private Mapper mapper;
 
-    public Future<List<OperationSummary>> generate() {
+    public Future<List<OperationDto>> generate() {
         try {
             Thread.sleep(10_000); // only for training !!!
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         List<OperationSummary> result = entityManager.createQuery(GET_OPERATIONS_SUMMARY_QL, OperationSummary.class).getResultList();
-        return new AsyncResult<>(result);
+        List<OperationDto> operationsDtos = mapper.map(result, OperationDto.class);
+        return new AsyncResult<>(operationsDtos);
     }
 
     @PostConstruct
