@@ -2,7 +2,7 @@ package pl.training.bank.rest.resource;
 
 import lombok.Setter;
 import pl.training.bank.entity.Account;
-import pl.training.bank.rest.Mapper;
+import pl.training.bank.service.Mapper;
 import pl.training.bank.rest.dto.AccountDto;
 import pl.training.bank.service.account.AccountsService;
 
@@ -11,8 +11,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
 
-@Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
+//@Consumes(MediaType.APPLICATION_JSON)
+//@Produces(MediaType.APPLICATION_JSON)
 @Setter
 @Path("accounts")
 public class AccountsResource {

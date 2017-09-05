@@ -6,9 +6,10 @@ import pl.training.bank.validator.Unsigned;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import java.io.Serializable;
 
 @Data
-public class OperationDto {
+public class OperationDto implements Serializable {
 
     @Valid
     private AccountDto account;

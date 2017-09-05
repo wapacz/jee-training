@@ -1,4 +1,4 @@
-package pl.training.bank.rest;
+package pl.training.bank.service;
 
 import org.modelmapper.ModelMapper;
 
