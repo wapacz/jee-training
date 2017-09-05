@@ -1,8 +1,5 @@
 package pl.training.bank.service.operation;
 
-import com.sun.xml.internal.ws.developer.SchemaValidation;
-import pl.training.bank.entity.Account;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.*;
@@ -31,7 +28,6 @@ public class ScheduleService {
                 .setParameter("value", INTEREST_VALUE)
                 .executeUpdate();
     }
-
 
     @PostConstruct
     public void init() {

@@ -49,6 +49,10 @@ public class AccountService {
         }
     }
 
+    public Account getAccountById(Long id) {
+        return accountRepository.getById(id);
+    }
+
     public long getBalance(String accountNumber) {
         return accountRepository.getByNumber(accountNumber).getBalance();
     }

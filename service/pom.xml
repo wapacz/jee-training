@@ -8,7 +8,10 @@
         <artifactId>core</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
+
+    <packaging>war</packaging>
 
     <artifactId>service</artifactId>
 
@@ -50,7 +53,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <filename>${ejbModule.name}.jar</filename>
+                    <filename>${ejbModule.name}.war</filename>
                 </configuration>
             </plugin>
         </plugins>
@@ -61,6 +64,11 @@
             <groupId>pl.training.bank</groupId>
             <artifactId>api</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>1.1.0</version>
         </dependency>
     </dependencies>
 
