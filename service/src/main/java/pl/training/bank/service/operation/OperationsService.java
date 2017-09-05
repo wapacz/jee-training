@@ -2,7 +2,7 @@ package pl.training.bank.service.operation;
 
 import lombok.Setter;
 import pl.training.bank.entity.Operation;
-import pl.training.bank.service.account.AccountService;
+import pl.training.bank.service.account.AccountsService;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -21,10 +21,10 @@ import java.util.logging.Logger;
         @ActivationConfigProperty(propertyName = "destination", propertyValue = "BankDS"),
         @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge")
 })
-public class OperationService implements MessageListener {
+public class OperationsService implements MessageListener {
 
     @EJB
-    private AccountService accountService;
+    private AccountsService accountService;
 
     @Override
     public void onMessage(Message message) {
@@ -48,12 +48,12 @@ public class OperationService implements MessageListener {
 
     @PostConstruct
     public void init() {
-        Logger.getLogger(getClass().getName()).log(Level.INFO, "OperationService is ready...");
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "OperationsService is ready...");
     }
 
     @PreDestroy
     public void destroy() {
-        Logger.getLogger(getClass().getName()).log(Level.INFO, "OperationService is going down...");
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "OperationsService is going down...");
     }
 
 }

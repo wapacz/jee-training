@@ -1,7 +1,7 @@
 package pl.training.bank.service.operation;
 
 import lombok.Setter;
-import pl.training.bank.api.OperationCart;
+import pl.training.bank.api.OperationsCart;
 import pl.training.bank.entity.Operation;
 
 import javax.annotation.PostConstruct;
@@ -14,10 +14,10 @@ import java.util.logging.Logger;
 
 @Setter
 @Stateful
-public class CartService implements OperationCart {
+public class CartService implements OperationsCart {
 
     @EJB
-    private OperationExecutorService executorService;
+    private OperationsExecutorService executorService;
     private List<Operation> operations = new ArrayList<>();
 
     @Override

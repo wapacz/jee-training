@@ -3,7 +3,7 @@ package pl.training.bank.service.operation;
 import pl.training.bank.entity.Account;
 import pl.training.bank.entity.Operation;
 import pl.training.bank.entity.OperationType;
-import pl.training.bank.service.account.AccountRepository;
+import pl.training.bank.service.account.AccountsRepository;
 
 import javax.ejb.EJB;
 import javax.interceptor.AroundInvoke;
@@ -15,10 +15,10 @@ public class OperationHistoryInterceptor {
     private static final int FUNDS_INDEX = 0;
     private static final int ACCOUNT_NUMBER_INDEX = 1;
 
-    @EJB(beanName = "JpaAccountRepositoryService")
-    private AccountRepository accountRepository;
+    @EJB(beanName = "JpaAccountsRepositoryService")
+    private AccountsRepository accountRepository;
     @EJB
-    private JpaOperationRepositoryService operationRepositoryService;
+    private JpaOperationsRepositoryService operationRepositoryService;
 
     @AroundInvoke
     public Object addEntry(InvocationContext invocationContext) throws Exception {

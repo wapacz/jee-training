@@ -2,7 +2,7 @@ package pl.training.bank.client;
 
 import pl.training.bank.api.Bank;
 import pl.training.bank.api.BankAsync;
-import pl.training.bank.api.OperationCart;
+import pl.training.bank.api.OperationsCart;
 import pl.training.bank.entity.Account;
 import pl.training.bank.entity.Operation;
 import pl.training.bank.entity.OperationSummary;
@@ -18,7 +18,7 @@ import java.util.concurrent.Future;
 
 public class EjbClient {
 
-    private static final String OPERATION_CART_JNDI_NAME = "java:/bank/CartService!pl.training.bank.api.OperationCart";
+    private static final String OPERATIONS_CART_JNDI_NAME = "java:/bank/CartService!pl.training.bank.api.OperationsCart";
     private static final String BANK_JNDI_NAME = "java:/bank/BankService!pl.training.bank.api.Bank";
     private static final String BANK_ASYNC_JNDI_NAME = "java:/bank/BankServiceAsync!pl.training.bank.api.BankAsync";
     private static final String BANK_QUEUE_JNDI_NAME = "jms/queue/Bank";
@@ -43,7 +43,7 @@ public class EjbClient {
             jmsContext.createProducer().send(queue, operation);
         }
 
-        OperationCart cart = proxyFactory.createProxy(OPERATION_CART_JNDI_NAME);
+        OperationsCart cart = proxyFactory.createProxy(OPERATIONS_CART_JNDI_NAME);
         cart.add(new Operation(firstAccount, OperationType.DEPOSIT, 500L));
         cart.add(new Operation(firstAccount, OperationType.WITHDRAW, 10L));
         cart.submit();

@@ -5,7 +5,7 @@ import pl.training.bank.entity.Account;
 import javax.ejb.Local;
 
 @Local
-public interface AccountRepository {
+public interface AccountsRepository {
 
     Account getByNumber(String number);
 

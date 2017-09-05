@@ -4,16 +4,21 @@ import lombok.Setter;
 import pl.training.bank.account.AccountNotFoundException;
 import pl.training.bank.entity.Account;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import static pl.training.bank.entity.Account.GET_BY_NUMBER_QL;
 
 @Setter
 @Stateless
-public class JpaAccountRepositoryService implements AccountRepository {
+public class JpaAccountsRepositoryService implements AccountsRepository {
 
     @PersistenceContext(unitName = "bank")
     private EntityManager entityManager;
@@ -50,6 +55,16 @@ public class JpaAccountRepositoryService implements AccountRepository {
         entityManager.flush();
         entityManager.refresh(account);
         return account;
+    }
+
+    @PostConstruct
+    public void init() {
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "JpaAccountsRepositoryService is ready...");
+    }
+
+    @PreDestroy
+    public void destroy() {
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "JpaAccountsRepositoryService is going down...");
     }
 
 }

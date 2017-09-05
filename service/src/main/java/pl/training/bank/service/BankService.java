@@ -3,8 +3,7 @@ package pl.training.bank.service;
 import lombok.Setter;
 import pl.training.bank.api.Bank;
 import pl.training.bank.entity.Account;
-import pl.training.bank.service.account.AccountService;
-import pl.training.bank.service.operation.ReportService;
+import pl.training.bank.service.account.AccountsService;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -20,34 +19,32 @@ import java.util.logging.Logger;
 public class BankService implements Bank {
 
     @EJB
-    private ReportService reportService;
-    @EJB
-    private AccountService accountService;
+    private AccountsService accountsService;
 
     @Override
     public Account createAccount() {
-        return accountService.createAccount();
+        return accountsService.createAccount();
     }
 
     @Override
     public void deposit(long funds, String accountNumber) {
-        accountService.deposit(funds, accountNumber);
+        accountsService.deposit(funds, accountNumber);
     }
 
     @Override
     public void withdraw(long funds, String accountNumber) {
-        accountService.withdraw(funds, accountNumber);
+        accountsService.withdraw(funds, accountNumber);
     }
 
     @Override
     public void transfer(long funds, String sourceAccountNumber, String destinationAccountNumber) {
-        accountService.withdraw(funds, sourceAccountNumber);
-        accountService.deposit(funds, destinationAccountNumber);
+        accountsService.withdraw(funds, sourceAccountNumber);
+        accountsService.deposit(funds, destinationAccountNumber);
     }
 
     @Override
     public long getBalance(String accountNumber) {
-        return accountService.getBalance(accountNumber);
+        return accountsService.getBalance(accountNumber);
     }
 
     @PostConstruct

@@ -5,7 +5,7 @@ import pl.training.bank.entity.Operation;
 import javax.ejb.Remote;
 
 @Remote
-public interface OperationCart {
+public interface OperationsCart {
 
     void add(Operation operation);
 

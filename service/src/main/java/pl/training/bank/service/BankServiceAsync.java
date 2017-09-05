@@ -3,7 +3,7 @@ package pl.training.bank.service;
 import lombok.Setter;
 import pl.training.bank.api.BankAsync;
 import pl.training.bank.entity.OperationSummary;
-import pl.training.bank.service.operation.ReportService;
+import pl.training.bank.service.operation.ReportingService;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -20,12 +20,12 @@ import java.util.logging.Logger;
 public class BankServiceAsync implements BankAsync {
 
     @EJB
-    private ReportService reportService;
+    private ReportingService reportingService;
 
     @Asynchronous
     @Override
     public Future<List<OperationSummary>> generateOperationsReport() {
-        return reportService.generate();
+        return reportingService.generate();
     }
 
     @PostConstruct

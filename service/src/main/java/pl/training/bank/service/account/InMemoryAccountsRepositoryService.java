@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Singleton
-public class InMemoryAccountRepositoryService implements AccountRepository {
+public class InMemoryAccountsRepositoryService implements AccountsRepository {
 
     private long counter;
     private Map<String, Account> accounts = new HashMap<>();
@@ -54,12 +54,12 @@ public class InMemoryAccountRepositoryService implements AccountRepository {
 
     @PostConstruct
     public void init() {
-        Logger.getLogger(getClass().getName()).log(Level.INFO, "InMemoryAccountRepositoryService is ready...");
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "InMemoryAccountsRepositoryService is ready...");
     }
 
     @PreDestroy
     public void destroy() {
-        Logger.getLogger(getClass().getName()).log(Level.INFO, "InMemoryAccountRepositoryService is going down...");
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "InMemoryAccountsRepositoryService is going down...");
     }
 
 }

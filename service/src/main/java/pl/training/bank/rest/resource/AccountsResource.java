@@ -4,7 +4,7 @@ import lombok.Setter;
 import pl.training.bank.entity.Account;
 import pl.training.bank.rest.Mapper;
 import pl.training.bank.rest.dto.AccountDto;
-import pl.training.bank.service.account.AccountService;
+import pl.training.bank.service.account.AccountsService;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -18,7 +18,7 @@ import java.net.URI;
 public class AccountsResource {
 
     @EJB
-    private AccountService accountService;
+    private AccountsService accountService;
     @EJB
     private Mapper mapper;
     @Context

@@ -16,29 +16,29 @@ import java.util.logging.Logger;
 
 @Setter
 @Stateless
-public class AccountService {
+public class AccountsService {
 
     @EJB
     private AccountNumberGenerator accountNumberGenerator;
-    @EJB(beanName = "JpaAccountRepositoryService")
-    private AccountRepository accountRepository;
+    @EJB(beanName = "JpaAccountsRepositoryService")
+    private AccountsRepository accountsRepository;
 
     public Account createAccount() {
         String accountNumber = accountNumberGenerator.getNext();
         Account account = new Account(accountNumber);
-        accountRepository.save(account);
+        accountsRepository.save(account);
         return account;
     }
 
     @Interceptors({OperationHistoryInterceptor.class, DepositLimitInterceptor.class})
     public void deposit(long funds, String accountNumber) {
-        Account account = accountRepository.getByNumber(accountNumber);
+        Account account = accountsRepository.getByNumber(accountNumber);
         account.deposit(funds);
     }
 
     @Interceptors(OperationHistoryInterceptor.class)
     public void withdraw(long funds, String accountNumber) {
-        Account account = accountRepository.getByNumber(accountNumber);
+        Account account = accountsRepository.getByNumber(accountNumber);
         checkFunds(funds, account);
         account.withdraw(funds);
     }
@@ -50,21 +50,21 @@ public class AccountService {
     }
 
     public Account getAccountById(Long id) {
-        return accountRepository.getById(id);
+        return accountsRepository.getById(id);
     }
 
     public long getBalance(String accountNumber) {
-        return accountRepository.getByNumber(accountNumber).getBalance();
+        return accountsRepository.getByNumber(accountNumber).getBalance();
     }
 
     @PostConstruct
     public void init() {
-        Logger.getLogger(getClass().getName()).log(Level.INFO, "AccountService is ready...");
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "AccountsService is ready...");
     }
 
     @PreDestroy
     public void destroy() {
-        Logger.getLogger(getClass().getName()).log(Level.INFO, "AccountService is going down...");
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "AccountsService is going down...");
     }
 
 }

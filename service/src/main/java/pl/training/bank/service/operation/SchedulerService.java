@@ -1,18 +1,21 @@
 package pl.training.bank.service.operation;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static pl.training.bank.entity.Account.*;
 
 @Startup
 @Singleton
-public class ScheduleService {
+public class SchedulerService {
 
     private static final long INTEREST_VALUE = 1;
     private static final long FEE_VALUE = -3;
@@ -31,6 +34,7 @@ public class ScheduleService {
 
     @PostConstruct
     public void init() {
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "SchedulerService is ready...");
         TimerConfig timerConfig = new TimerConfig();
         timerConfig.setPersistent(false);
         timerConfig.setInfo("Test");
@@ -47,6 +51,11 @@ public class ScheduleService {
         entityManager.createNamedQuery(ADD_TO_BALANCE_QL)
                 .setParameter("value", FEE_VALUE)
                 .executeUpdate();
+    }
+
+    @PreDestroy
+    public void destroy() {
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "SchedulerService is going down...");
     }
 
 }
