@@ -15,6 +15,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import static pl.training.bank.operation.OperationTypeDto.DEPOSIT;
+import static pl.training.bank.operation.OperationTypeDto.TRANSFER;
 import static pl.training.bank.operation.OperationTypeDto.WITHDRAW;
 
 public class EjbClient {
@@ -36,7 +37,7 @@ public class EjbClient {
         bank.processOperation(new OperationDto(secondaryAccount, DEPOSIT, 2_000L));
         bank.processOperation(new OperationDto(primaryAccount, DEPOSIT, 1_000L));
 
-        OperationDto transferOperation =  new OperationDto(primaryAccount, DEPOSIT, 1_000L);
+        OperationDto transferOperation =  new OperationDto(primaryAccount, TRANSFER, 1_000L);
         transferOperation.setSecondaryAccount(secondaryAccount);
         bank.processOperation(transferOperation);
 
