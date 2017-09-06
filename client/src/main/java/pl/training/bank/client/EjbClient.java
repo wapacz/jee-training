@@ -29,30 +29,30 @@ public class EjbClient {
         ProxyFactory proxyFactory = new ProxyFactory();
         Bank bank = proxyFactory.createProxy(BANK_JNDI_NAME);
 
-        AccountDto firstAccount = bank.createAccount();
-        AccountDto secondAccount = bank.createAccount();
+        AccountDto primaryAccount = bank.createAccount();
+        AccountDto secondaryAccount = bank.createAccount();
 
-        bank.processOperation(new OperationDto(firstAccount, DEPOSIT, 1_000L));
-        bank.processOperation(new OperationDto(secondAccount, DEPOSIT, 2_000L));
-        bank.processOperation(new OperationDto(firstAccount, DEPOSIT, 1_000L));
+        bank.processOperation(new OperationDto(primaryAccount, DEPOSIT, 1_000L));
+        bank.processOperation(new OperationDto(secondaryAccount, DEPOSIT, 2_000L));
+        bank.processOperation(new OperationDto(primaryAccount, DEPOSIT, 1_000L));
 
-        OperationDto transferOperation =  new OperationDto(firstAccount, DEPOSIT, 1_000L);
-        transferOperation.setSecondaryAccount(secondAccount);
+        OperationDto transferOperation =  new OperationDto(primaryAccount, DEPOSIT, 1_000L);
+        transferOperation.setSecondaryAccount(secondaryAccount);
         bank.processOperation(transferOperation);
 
         ConnectionFactory connectionFactory = proxyFactory.createProxy(QUEUE_CONNECTION_FACTORY_JNDI_NAME);
         Queue queue = proxyFactory.createProxy(BANK_QUEUE_JNDI_NAME);
         try (JMSContext jmsContext = connectionFactory.createContext()) {
-            jmsContext.createProducer().send(queue, new OperationDto(firstAccount, DEPOSIT, 100L));
+            jmsContext.createProducer().send(queue, new OperationDto(primaryAccount, DEPOSIT, 100L));
         }
 
         OperationsCart cart = proxyFactory.createProxy(OPERATIONS_CART_JNDI_NAME);
-        cart.add(new OperationDto(firstAccount, DEPOSIT, 500L));
-        cart.add(new OperationDto(firstAccount, WITHDRAW, 200L));
+        cart.add(new OperationDto(primaryAccount, DEPOSIT, 500L));
+        cart.add(new OperationDto(primaryAccount, WITHDRAW, 200L));
         cart.submit();
 
-        System.out.printf("First account: %d\n", bank.getBalance(firstAccount.getNumber()));
-        System.out.printf("Second account: %d\n", bank.getBalance(secondAccount.getNumber()));
+        System.out.printf("First account: %d\n", bank.getBalance(primaryAccount.getNumber()));
+        System.out.printf("Second account: %d\n", bank.getBalance(secondaryAccount.getNumber()));
 
         BankAsync bankAsync =  proxyFactory.createProxy(BANK_ASYNC_JNDI_NAME);
         Future<List<OperationDto>> operationsSummary = bankAsync.generateOperationsReport();
