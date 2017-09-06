@@ -1,6 +1,6 @@
 package pl.training.bank.rest.extension;
 
-import pl.training.bank.api.dto.ExceptionDto;
+import pl.training.bank.api.ExceptionDto;
 
 import javax.validation.ConstraintViolationException;
 import javax.ws.rs.core.Response;

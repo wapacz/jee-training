@@ -1,9 +1,10 @@
-package pl.training.bank.api.dto;
+package pl.training.bank.operation;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import pl.training.bank.account.AccountDto;
 import pl.training.bank.validator.Unsigned;
 
 import javax.validation.Valid;

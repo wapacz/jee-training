@@ -1,4 +1,4 @@
-package pl.training.bank.api.dto;
+package pl.training.bank.account;
 
 import lombok.Data;
 

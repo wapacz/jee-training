@@ -2,7 +2,7 @@ package pl.training.bank.service;
 
 import lombok.Setter;
 import pl.training.bank.api.BankAsync;
-import pl.training.bank.api.dto.OperationDto;
+import pl.training.bank.operation.OperationDto;
 import pl.training.bank.service.operation.ReportingService;
 
 import javax.annotation.PostConstruct;

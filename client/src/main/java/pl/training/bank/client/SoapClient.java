@@ -1,15 +1,15 @@
 package pl.training.bank.client;
 
 import pl.training.bank.api.Bank;
-import pl.training.bank.api.dto.AccountDto;
-import pl.training.bank.api.dto.OperationDto;
+import pl.training.bank.account.AccountDto;
+import pl.training.bank.operation.OperationDto;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static pl.training.bank.api.dto.OperationTypeDto.DEPOSIT;
+import static pl.training.bank.operation.OperationTypeDto.DEPOSIT;
 
 public class SoapClient {
 

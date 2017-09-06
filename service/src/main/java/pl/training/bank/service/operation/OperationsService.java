@@ -1,7 +1,7 @@
 package pl.training.bank.service.operation;
 
 import lombok.Setter;
-import pl.training.bank.api.dto.OperationDto;
+import pl.training.bank.operation.OperationDto;
 import pl.training.bank.service.account.AccountsService;
 
 import javax.annotation.PostConstruct;

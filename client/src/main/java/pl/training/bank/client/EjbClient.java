@@ -3,8 +3,8 @@ package pl.training.bank.client;
 import pl.training.bank.api.Bank;
 import pl.training.bank.api.BankAsync;
 import pl.training.bank.api.OperationsCart;
-import pl.training.bank.api.dto.AccountDto;
-import pl.training.bank.api.dto.OperationDto;
+import pl.training.bank.account.AccountDto;
+import pl.training.bank.operation.OperationDto;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSContext;
@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import static pl.training.bank.api.dto.OperationTypeDto.DEPOSIT;
-import static pl.training.bank.api.dto.OperationTypeDto.WITHDRAW;
+import static pl.training.bank.operation.OperationTypeDto.DEPOSIT;
+import static pl.training.bank.operation.OperationTypeDto.WITHDRAW;
 
 public class EjbClient {
 

@@ -1,4 +1,4 @@
-package pl.training.bank.api.dto;
+package pl.training.bank.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

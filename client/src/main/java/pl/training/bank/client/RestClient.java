@@ -3,7 +3,7 @@ package pl.training.bank.client;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
-import pl.training.bank.api.dto.AccountDto;
+import pl.training.bank.account.AccountDto;
 import pl.training.bank.rest.extension.BinaryMapper;
 
 import javax.ws.rs.core.Response;

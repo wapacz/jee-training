@@ -4,8 +4,8 @@ import lombok.Setter;
 import pl.training.bank.api.Bank;
 import pl.training.bank.entity.Account;
 import pl.training.bank.entity.Operation;
-import pl.training.bank.api.dto.AccountDto;
-import pl.training.bank.api.dto.OperationDto;
+import pl.training.bank.account.AccountDto;
+import pl.training.bank.operation.OperationDto;
 import pl.training.bank.service.account.AccountsService;
 import pl.training.bank.service.operation.OperationsExecutorService;
 

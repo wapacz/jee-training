@@ -1,7 +1,7 @@
 package pl.training.bank.rest.extension;
 
 import pl.training.bank.account.AccountNotFoundException;
-import pl.training.bank.api.dto.ExceptionDto;
+import pl.training.bank.api.ExceptionDto;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
