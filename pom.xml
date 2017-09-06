@@ -17,6 +17,7 @@
         <module>client</module>
         <module>cdi</module>
         <module>commons</module>
+        <module>test</module>
     </modules>
 
     <properties>
