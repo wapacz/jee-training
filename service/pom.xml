@@ -80,6 +80,11 @@
             <artifactId>resteasy-validator-provider-11</artifactId>
             <version>3.1.4.Final</version>
         </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.7.0</version>
+        </dependency>
     </dependencies>
 
 </project>

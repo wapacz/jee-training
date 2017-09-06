@@ -2,6 +2,7 @@ package pl.training.bank.rest.resource;
 
 import lombok.Setter;
 import pl.training.bank.entity.Account;
+import pl.training.bank.rest.jwt.JWTToken;
 import pl.training.bank.service.Mapper;
 import pl.training.bank.account.AccountDto;
 import pl.training.bank.service.account.AccountsService;
@@ -24,6 +25,7 @@ public class AccountsResource {
     @Context
     private UriInfo uriInfo;
 
+    @JWTToken
     @POST
     public Response createAccount() {
         Account account = accountService.createAccount();
