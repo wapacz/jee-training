@@ -7,7 +7,6 @@ import pl.training.bank.rest.jwt.KeyGenerator;
 import pl.training.bank.rest.jwt.PasswordEncoder;
 import pl.training.bank.security.TokenDto;
 import pl.training.bank.security.UserDto;
-import pl.training.bank.service.Mapper;
 import pl.training.bank.service.security.UserService;
 
 import javax.ejb.EJB;
@@ -24,22 +23,19 @@ import java.time.ZoneId;
 import java.util.Date;
 
 @Transactional
-@Path("/users")
-public class UserResource {
+@Path("/tokens")
+public class TokensResource {
 
     @Context
     private UriInfo uriInfo;
     @EJB
     private UserService userService;
-    @EJB
-    private Mapper mapper;
     @Inject
     private PasswordEncoder passwordEncoder;
     @Inject
     private KeyGenerator keyGenerator;
 
     @POST
-    @Path("/login")
     public Response authenticateUser(UserDto userDto) {
         String token = authenticate(userDto);
         return Response.ok().entity(new TokenDto(token)).build();
@@ -63,15 +59,8 @@ public class UserResource {
                 .setExpiration(toDate(LocalDateTime.now().plusMinutes(15L)))
                 .signWith(SignatureAlgorithm.HS512, key)
                 .compact();
-        System.out.println(jwtToken.toString());
+        System.out.println(jwtToken);
         return jwtToken;
-    }
-
-    @POST
-    public Response create(UserDto userDto) {
-        User user = mapper.map(userDto, User.class);
-        userService.addUser(user);
-        return Response.noContent().build();
     }
 
     private Date toDate(LocalDateTime localDateTime) {
