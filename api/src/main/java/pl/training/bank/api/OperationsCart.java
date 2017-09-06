@@ -1,6 +1,6 @@
 package pl.training.bank.api;
 
-import pl.training.bank.rest.dto.OperationDto;
+import pl.training.bank.api.dto.OperationDto;
 
 import javax.ejb.Remote;
 

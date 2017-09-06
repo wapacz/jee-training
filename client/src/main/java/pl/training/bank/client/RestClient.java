@@ -3,10 +3,9 @@ package pl.training.bank.client;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
-import pl.training.bank.rest.dto.AccountDto;
+import pl.training.bank.api.dto.AccountDto;
 import pl.training.bank.rest.extension.BinaryMapper;
 
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 public class RestClient {

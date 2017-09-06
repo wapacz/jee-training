@@ -3,7 +3,7 @@ package pl.training.bank.rest.resource;
 import lombok.Setter;
 import pl.training.bank.entity.Operation;
 import pl.training.bank.service.Mapper;
-import pl.training.bank.rest.dto.OperationDto;
+import pl.training.bank.api.dto.OperationDto;
 import pl.training.bank.service.operation.OperationsExecutorService;
 
 import javax.ejb.EJB;

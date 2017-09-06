@@ -1,7 +1,7 @@
 package pl.training.bank.api;
 
-import pl.training.bank.rest.dto.AccountDto;
-import pl.training.bank.rest.dto.OperationDto;
+import pl.training.bank.api.dto.AccountDto;
+import pl.training.bank.api.dto.OperationDto;
 
 import javax.ejb.Remote;
 import javax.jws.WebService;
@@ -13,7 +13,9 @@ public interface Bank {
 
     AccountDto createAccount();
 
-    void process(List<OperationDto> operationsDtos);
+    void processOperations(List<OperationDto> operationsDtos);
+
+    void processOperation(OperationDto operationDto);
 
     long getBalance(String accountNumber);
 

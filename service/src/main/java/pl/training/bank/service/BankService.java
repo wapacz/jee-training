@@ -4,8 +4,8 @@ import lombok.Setter;
 import pl.training.bank.api.Bank;
 import pl.training.bank.entity.Account;
 import pl.training.bank.entity.Operation;
-import pl.training.bank.rest.dto.AccountDto;
-import pl.training.bank.rest.dto.OperationDto;
+import pl.training.bank.api.dto.AccountDto;
+import pl.training.bank.api.dto.OperationDto;
 import pl.training.bank.service.account.AccountsService;
 import pl.training.bank.service.operation.OperationsExecutorService;
 
@@ -14,6 +14,7 @@ import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,9 +38,14 @@ public class BankService implements Bank {
     }
 
     @Override
-    public void process(List<OperationDto> operationsDtos) {
+    public void processOperations(List<OperationDto> operationsDtos) {
         List<Operation> operations = mapper.map(operationsDtos, Operation.class);
         operationsExecutorService.submit(operations);
+    }
+
+    @Override
+    public void processOperation(OperationDto operationDto) {
+        processOperations(Collections.singletonList(operationDto));
     }
 
     @Override

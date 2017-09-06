@@ -3,7 +3,7 @@ package pl.training.bank.service.operation;
 import lombok.Setter;
 import pl.training.bank.api.OperationsCart;
 import pl.training.bank.entity.Operation;
-import pl.training.bank.rest.dto.OperationDto;
+import pl.training.bank.api.dto.OperationDto;
 import pl.training.bank.service.Mapper;
 
 import javax.annotation.PostConstruct;

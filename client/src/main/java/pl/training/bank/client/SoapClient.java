@@ -1,21 +1,23 @@
 package pl.training.bank.client;
 
 import pl.training.bank.api.Bank;
-import pl.training.bank.entity.Account;
+import pl.training.bank.api.dto.AccountDto;
+import pl.training.bank.api.dto.OperationDto;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static pl.training.bank.api.dto.OperationTypeDto.DEPOSIT;
+
 public class SoapClient {
 
     public static void main(String[] args) throws MalformedURLException {
         Bank bank = getSoapProxy();
-
-        Account account = bank.createAccount();
-        bank.deposit(1000, account.getNumber());
-        System.out.printf("Account: %d\n", bank.getBalance(account.getNumber()));
+        AccountDto account = bank.createAccount();
+        OperationDto operation = new OperationDto(account, DEPOSIT, 2_000L);
+        bank.processOperation(operation);
     }
 
     private static Bank getSoapProxy() throws MalformedURLException {
