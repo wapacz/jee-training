@@ -17,7 +17,8 @@ public class OperationDto implements Serializable {
 
     @Valid
     @NonNull
-    private AccountDto account;
+    private AccountDto primaryAccount;
+    private AccountDto secondaryAccount;
     @NonNull
     private OperationTypeDto type;
     @Unsigned

@@ -35,7 +35,10 @@ public class EjbClient {
         bank.processOperation(new OperationDto(firstAccount, DEPOSIT, 1_000L));
         bank.processOperation(new OperationDto(secondAccount, DEPOSIT, 2_000L));
         bank.processOperation(new OperationDto(firstAccount, DEPOSIT, 1_000L));
-        //bank.transfer(50, firstAccount.getNumber(), secondAccount.getNumber());
+
+        OperationDto transferOperation =  new OperationDto(firstAccount, DEPOSIT, 1_000L);
+        transferOperation.setSecondaryAccount(secondAccount);
+        bank.processOperation(transferOperation);
 
         ConnectionFactory connectionFactory = proxyFactory.createProxy(QUEUE_CONNECTION_FACTORY_JNDI_NAME);
         Queue queue = proxyFactory.createProxy(BANK_QUEUE_JNDI_NAME);

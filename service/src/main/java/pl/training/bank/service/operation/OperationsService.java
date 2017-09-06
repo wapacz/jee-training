@@ -1,6 +1,7 @@
 package pl.training.bank.service.operation;
 
 import lombok.Setter;
+import pl.training.bank.api.dto.OperationDto;
 import pl.training.bank.entity.Operation;
 import pl.training.bank.service.account.AccountsService;
 
@@ -29,14 +30,18 @@ public class OperationsService implements MessageListener {
     @Override
     public void onMessage(Message message) {
         try {
-            Operation operation = message.getBody(Operation.class);
+            OperationDto operation = message.getBody(OperationDto.class);
             Logger.getLogger(getClass().getName()).log(Level.INFO, "Processing new operation: " + operation);
             switch (operation.getType()) {
                 case DEPOSIT:
-                    accountService.deposit(operation.getFunds(), operation.getAccount().getNumber());
+                    accountService.deposit(operation.getFunds(), operation.getPrimaryAccount().getNumber());
                     break;
                 case WITHDRAW:
-                    accountService.withdraw(operation.getFunds(), operation.getAccount().getNumber());
+                    accountService.withdraw(operation.getFunds(), operation.getPrimaryAccount().getNumber());
+                    break;
+                case TRANSFER:
+                    accountService.withdraw(operation.getFunds(), operation.getPrimaryAccount().getNumber());
+                    accountService.deposit(operation.getFunds(), operation.getSecondaryAccount().getNumber());
                     break;
                 default:
                     throw new IllegalArgumentException("Invalid operation");
