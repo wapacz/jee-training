@@ -1,6 +1,7 @@
 package pl.training.bank.service.operation;
 
 import pl.training.bank.entity.Operation;
+import pl.training.bank.operation.OperationDto;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -22,7 +23,7 @@ public class OperationsExecutorService {
     @Resource(lookup = "java:jboss/exported/jms/queue/Bank")
     private Queue queue;
 
-    public void submit(List<Operation> operations) {
+    public void submit(List<OperationDto> operations) {
         try (JMSContext jmsContext = connectionFactory.createContext()) {
             JMSProducer jmsProducer = jmsContext.createProducer();
             operations.forEach(operation -> jmsProducer.send(queue, operation));

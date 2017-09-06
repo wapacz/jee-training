@@ -19,13 +19,10 @@ public class OperationsResource {
 
     @EJB
     private OperationsExecutorService executorService;
-    @EJB
-    private Mapper mapper;
 
     @POST
     public Response executeOperation(@Valid OperationDto operationDto) {
-        Operation operation = mapper.map(operationDto, Operation.class);
-        executorService.submit(Collections.singletonList(operation));
+        executorService.submit(Collections.singletonList(operationDto));
         return Response.noContent().build();
     }
 

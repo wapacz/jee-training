@@ -3,7 +3,6 @@ package pl.training.bank.service;
 import lombok.Setter;
 import pl.training.bank.api.Bank;
 import pl.training.bank.entity.Account;
-import pl.training.bank.entity.Operation;
 import pl.training.bank.account.AccountDto;
 import pl.training.bank.operation.OperationDto;
 import pl.training.bank.service.account.AccountsService;
@@ -39,8 +38,7 @@ public class BankService implements Bank {
 
     @Override
     public void processOperations(List<OperationDto> operationsDtos) {
-        List<Operation> operations = mapper.map(operationsDtos, Operation.class);
-        operationsExecutorService.submit(operations);
+        operationsExecutorService.submit(operationsDtos);
     }
 
     @Override
